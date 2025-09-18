@@ -1,5 +1,6 @@
 package com.example.demo.article.entity;
 
+import com.example.demo.global.jpa.BaseEntity;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -11,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
-public class Article {
+public class Article extends BaseEntity {
     private String subject;
     private String content;
 }
