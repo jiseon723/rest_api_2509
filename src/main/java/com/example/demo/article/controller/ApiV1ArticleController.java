@@ -4,7 +4,10 @@ import com.example.demo.article.dto.ArticleDTO;
 import com.example.demo.article.entity.Article;
 import com.example.demo.article.service.ArticleService;
 import com.example.demo.global.RsData.RsData;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,7 @@ import java.util.List;
 public class ApiV1ArticleController {
     private final ArticleService articleService;
 
+//    다건 조회
     @Getter
     @AllArgsConstructor
     public static class ArticlesResponse {
@@ -40,6 +44,7 @@ public class ApiV1ArticleController {
         return RsData.of("200", "게시글 다건 조회 성공", new ArticlesResponse(articleList)); //ArticlesResponse로 감싸는 이유 프론트엔드 작업자가 확인하기 좋음
     }
 
+//    단건 조회
     @Getter
     @AllArgsConstructor
     public static class ArticleResponse {
@@ -51,16 +56,27 @@ public class ApiV1ArticleController {
         Article article = new Article("제목1", "내용1");
         ArticleDTO articleDTO = new ArticleDTO(article);
 
-        return RsData.of("200", "게시글 다건 조회 성공", new ArticleResponse(articleDTO)); //ArticlesResponse로 감싸는 이유 프론트엔드 작업자가 확인하기 좋음
+        return RsData.of("200", "게시글 단건 조회 성공", new ArticleResponse(articleDTO)); //ArticlesResponse로 감싸는 이유 프론트엔드 작업자가 확인하기 좋음
+    }
+
+//    등록
+    @Data
+    public static class ArticleRequest {
+        @NotBlank
+        private String subject;
+
+        @NotBlank
+        private String content;
     }
 
     @PostMapping("")
-    public String create(@RequestParam("subject") String subject, @RequestParam("content") String content) {
-        System.out.println(subject);
-        System.out.println(content);
+    public String create(@Valid@RequestBody ArticleRequest articleRequest) {
+        System.out.println(articleRequest.subject);
+        System.out.println(articleRequest.content);
 
         return "등록";
     }
+
 
     @PatchMapping("/{id}")
     public String modify(@PathVariable("id") Long id, @RequestParam("subject") String subject, @RequestParam("content") String content) {
@@ -70,6 +86,7 @@ public class ApiV1ArticleController {
 
         return "수정";
     }
+
 
     @DeleteMapping("{id}")
     public String delete(@PathVariable("id") Long id) {
