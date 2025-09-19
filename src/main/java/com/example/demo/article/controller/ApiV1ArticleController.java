@@ -77,12 +77,11 @@ public class ApiV1ArticleController {
         return "등록";
     }
 
-
+//    수정
     @PatchMapping("/{id}")
-    public String modify(@PathVariable("id") Long id, @RequestParam("subject") String subject, @RequestParam("content") String content) {
-        System.out.println(id);
-        System.out.println(subject);
-        System.out.println(content);
+    public String modify(@Valid@RequestBody ArticleRequest articleRequest) {
+        System.out.println(articleRequest.getSubject());
+        System.out.println(articleRequest.getContent());
 
         return "수정";
     }
