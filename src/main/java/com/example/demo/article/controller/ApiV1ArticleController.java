@@ -22,16 +22,16 @@ public class ApiV1ArticleController {
 
     @PostMapping("")
     public String create () {
-        return "";
+        return "등록";
     }
 
     @PatchMapping("/{id}")
     public String modify () {
-        return "";
+        return "수정";
     }
 
     @DeleteMapping("/{id}")
     public String delete () {
-        return "";
+        return "삭제";
     }
 }
