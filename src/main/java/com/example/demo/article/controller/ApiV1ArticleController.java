@@ -21,7 +21,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/api/v1/articles", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE) //무조건 JASON 으로 주고받는다.
+@RequestMapping(value = "/api/v1/articles", produces = APPLICATION_JSON_VALUE) //JSON 형식으로 응답한다.
 @RequiredArgsConstructor //final 사용 가능
 @Tag(name = "ApiV1ArticleController", description = "게시글 CRUD API")
 public class ApiV1ArticleController {
