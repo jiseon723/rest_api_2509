@@ -3,6 +3,7 @@ package com.example.demo.article.service;
 import com.example.demo.article.dto.ArticleDTO;
 import com.example.demo.article.entity.Article;
 import com.example.demo.article.repository.ArticleRepository;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,16 @@ public class ArticleService {
         Optional<Article> optionalArticle = articleRepository.findById(id);
 
         return  optionalArticle.map(article -> new ArticleDTO(article)).orElse(null); //있으면 DTO 없으면 null
+    }
+
+    public Article write(@NotBlank String subject, @NotBlank String content) {
+        Article article = Article.builder()
+                .subject(subject)
+                .content(content)
+                .build();
+
+        articleRepository.save(article);
+
+        return article;
     }
 }

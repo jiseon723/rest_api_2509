@@ -4,6 +4,7 @@ import com.example.demo.article.dto.ArticleDTO;
 import com.example.demo.article.entity.Article;
 import com.example.demo.article.request.ArticleCreateRequest;
 import com.example.demo.article.request.ArticleModifyRequest;
+import com.example.demo.article.response.ArticleCreateResponse;
 import com.example.demo.article.response.ArticleResponse;
 import com.example.demo.article.response.ArticlesResponse;
 import com.example.demo.article.service.ArticleService;
@@ -39,9 +40,10 @@ public class ApiV1ArticleController {
 
 //    등록
     @PostMapping("")
-    public String create(@Valid@RequestBody ArticleCreateRequest articleCreateRequest) {
+    public RsData<ArticleCreateResponse> create(@Valid @RequestBody ArticleCreateRequest articleCreateRequest) {
+        Article article = articleService.write(articleCreateRequest.getSubject(), articleCreateRequest.getContent());
 
-        return "등록";
+        return RsData.of("200", "등록성공", new ArticleCreateResponse(article));
     }
 
 //    수정
@@ -52,7 +54,7 @@ public class ApiV1ArticleController {
     }
 
 //    삭제
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
 
         return "삭제";
