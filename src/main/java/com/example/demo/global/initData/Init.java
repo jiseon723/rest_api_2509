@@ -1,6 +1,6 @@
 package com.example.demo.global.initData;
 
-import com.example.demo.article.service.ArticleService;
+import com.example.demo.domain.article.service.ArticleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
-package com.example.demo.article.response;
+package com.example.demo.domain.article.response;
 
-import com.example.demo.article.dto.ArticleDTO;
+import com.example.demo.domain.article.dto.ArticleDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
