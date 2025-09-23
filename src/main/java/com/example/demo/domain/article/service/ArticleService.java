@@ -3,6 +3,7 @@ package com.example.demo.domain.article.service;
 import com.example.demo.domain.article.dto.ArticleDTO;
 import com.example.demo.domain.article.entity.Article;
 import com.example.demo.domain.article.repository.ArticleRepository;
+import com.example.demo.domain.member.entity.Member;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,19 @@ public class ArticleService {
 
         return article;
     }
+
+    public Article write(@NotBlank String subject, @NotBlank String content, Member member) {
+        Article article = Article.builder()
+                .subject(subject)
+                .content(content)
+                .member(member)
+                .build();
+
+        articleRepository.save(article);
+
+        return article;
+    }
+
 
     public Article update(Article article, String subject, String content) {
         article.setSubject(subject);

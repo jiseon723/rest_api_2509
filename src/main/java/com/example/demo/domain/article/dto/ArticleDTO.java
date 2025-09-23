@@ -11,6 +11,7 @@ public class ArticleDTO {
     private final Long id;
     private final String subject;
     private final String content;
+    private final String author;
     private final LocalDateTime createdDate;
     private final LocalDateTime modifiedDate;
 
@@ -18,6 +19,7 @@ public class ArticleDTO {
         this.id = article.getId();
         this.subject = article.getSubject();
         this.content = article.getContent();
+        this.author = article.getMember().getUsername();
         this.createdDate = article.getCreatedDate();
         this.modifiedDate = article.getModifiedDate();
     }
