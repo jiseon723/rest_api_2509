@@ -7,4 +7,5 @@ import java.lang.reflect.Member;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
+    Member findByUsername(String username);
 }

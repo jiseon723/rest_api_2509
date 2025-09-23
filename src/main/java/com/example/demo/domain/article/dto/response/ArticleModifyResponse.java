@@ -1,4 +1,4 @@
-package com.example.demo.domain.article.response;
+package com.example.demo.domain.article.dto.response;
 
 import com.example.demo.domain.article.entity.Article;
 import lombok.AllArgsConstructor;

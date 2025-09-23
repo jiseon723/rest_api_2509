@@ -1,7 +1,10 @@
 package com.example.demo.domain.member.controller;
 
-import com.example.demo.domain.member.request.MemberRequest;
+import com.example.demo.domain.member.dto.request.MemberRequest;
+import com.example.demo.domain.member.dto.response.MemberResponse;
+import com.example.demo.domain.member.entity.Member;
 import com.example.demo.domain.member.service.MemberService;
+import com.example.demo.global.RsData.RsData;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +23,9 @@ public class ApiV1MemberController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public String join (@Valid @RequestBody MemberRequest memberRequest) {
-        memberService.join(memberRequest.getUsername(), memberRequest.getPassword());
+    public RsData<MemberResponse> join (@Valid @RequestBody MemberRequest memberRequest) {
+        Member member = memberService.join(memberRequest.getUsername(), memberRequest.getPassword());
 
-        return "회원가입 성공";
+        return RsData.of("200", "회원가입이 완료되었습니다.", new MemberResponse(member));
     }
 }

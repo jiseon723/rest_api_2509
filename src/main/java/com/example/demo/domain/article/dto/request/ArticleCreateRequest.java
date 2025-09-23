@@ -1,4 +1,4 @@
-package com.example.demo.domain.article.request;
+package com.example.demo.domain.article.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
