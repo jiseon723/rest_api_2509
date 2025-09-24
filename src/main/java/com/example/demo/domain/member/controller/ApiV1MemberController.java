@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
-@RequestMapping(value = "/api/v1/members", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/members")
 @RequiredArgsConstructor
 @Tag(name = "ApiV1MemberController", description = "회원 인증/인가 API")
 public class ApiV1MemberController {
