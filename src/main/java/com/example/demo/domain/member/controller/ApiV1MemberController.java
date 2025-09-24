@@ -37,7 +37,12 @@ public class ApiV1MemberController {
 
         //accessToken 발급
         String accessToken = jwtProvider.genAccessToken(member);
-        res.addCookie(new Cookie("accessToken", accessToken));
+        Cookie cookie = new Cookie("accessToken", accessToken);
+        cookie.setHttpOnly(true); //자바에 접근 막기
+        cookie.setSecure(true); //HTTPS에서만 쿠키 보내기
+        cookie.setPath("/"); //전체 사이트에서 사용
+        cookie.setMaxAge(60*60); //쿠키 유효시간 1시간
+        res.addCookie(cookie); //쿠키를 브라우저에 전송
 
         return RsData.of("200", "토큰 발급 성공 : " + accessToken, new MemberResponse(member));
     }
