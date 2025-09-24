@@ -28,4 +28,8 @@ public class MemberService {
 
         return member;
     }
+
+    public Member getMember(String username) {
+        return memberRepository.findByUsername(username);
+    }
 }
