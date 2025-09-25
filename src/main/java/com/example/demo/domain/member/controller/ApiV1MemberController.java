@@ -37,12 +37,20 @@ public class ApiV1MemberController {
 
         //accessToken 발급
         String accessToken = jwtProvider.genAccessToken(member);
-        Cookie cookie = new Cookie("accessToken", accessToken);
-        cookie.setHttpOnly(true); //자바에 접근 막기
-        cookie.setSecure(true); //HTTPS에서만 쿠키 보내기
-        cookie.setPath("/"); //전체 사이트에서 사용
-        cookie.setMaxAge(60*60); //쿠키 유효시간 1시간
-        res.addCookie(cookie); //쿠키를 브라우저에 전송
+        Cookie accessTokencookie = new Cookie("accessToken", accessToken);
+        accessTokencookie.setHttpOnly(true); //자바에 접근 막기
+        accessTokencookie.setSecure(true); //HTTPS에서만 쿠키 보내기
+        accessTokencookie.setPath("/"); //전체 사이트에서 사용
+        accessTokencookie.setMaxAge(60*60); //쿠키 유효시간 1시간
+        res.addCookie(accessTokencookie); //쿠키를 브라우저에 전송
+
+        String refreshToken = member.getRefreshToken();
+        Cookie refreshTokencookie = new Cookie("refreshToken", refreshToken);
+        refreshTokencookie.setHttpOnly(true); //자바에 접근 막기
+        refreshTokencookie.setSecure(true); //HTTPS에서만 쿠키 보내기
+        refreshTokencookie.setPath("/"); //전체 사이트에서 사용
+        refreshTokencookie.setMaxAge(60*60); //쿠키 유효시간 1시간
+        res.addCookie(refreshTokencookie); //쿠키를 브라우저에 전송
 
         return RsData.of("200", "토큰 발급 성공 : " + accessToken, new MemberResponse(member));
     }
@@ -63,5 +71,20 @@ public class ApiV1MemberController {
         Member member = this.memberService.getMember(username);
 
         return RsData.of("200", "내 회원정보", new MemberResponse(member));
+    }
+
+    @GetMapping("/logout")
+    public RsData logout (HttpServletResponse res) {
+        Cookie accessTokenCookie = new Cookie("accessToken", null);
+        accessTokenCookie.setPath("/");
+        accessTokenCookie.setMaxAge(0);
+        res.addCookie(accessTokenCookie);
+
+        Cookie refreshTokenCookie = new Cookie("refreshToken", null);
+        refreshTokenCookie.setPath("/");
+        refreshTokenCookie.setMaxAge(0);
+        res.addCookie(refreshTokenCookie);
+
+        return RsData.of("200", "로그아웃 성공");
     }
 }

@@ -24,7 +24,7 @@ public class ApiSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/api/*/articles").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/*/articles/*").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/*/members/login").permitAll() // 로그인은 누구나 가능, post 요청만 허용
-                                .requestMatchers(HttpMethod.GET, "/api/*/members/me").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/*/members/logout").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .csrf(
@@ -41,7 +41,7 @@ public class ApiSecurityConfig {
                         sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(
-                        jwtAuthorizationFilter, //엑세스 토큰을 이용한 토큰 처리 (필터적용 전에 처리)
+                        jwtAuthorizationFilter, //엑세스 토큰을 이용한 토큰 처리 (처리 이후 필터적용)
                         UsernamePasswordAuthenticationFilter.class
                 );
         return http.build();
